@@ -1,6 +1,7 @@
 package poker
 
 import (
+	"fmt"
 	"testing"
 	//"fmt"
 )
@@ -68,4 +69,28 @@ func Test_allHands(t *testing.T) {
 			t.Errorf("For %s, expected %d, got %d", HandRank(i), v, frequency[i])
 		}
 	}
+}
+
+func TestDeal(t *testing.T) {
+	d := NewDeck()
+	var hand Hand
+	hand[0] = d[0]
+	hand[1] = d[1]
+	hand[2] = d[2]
+	hand[3] = d[3]
+	hand[4] = d[4]
+
+	if hand.Eval().Rank() != STRAIGHT_FLUSH {
+		t.Errorf("For %v, expected Straight Flush, got %v", hand, hand.Eval().Rank())
+	}
+	//	fmt.Printf("%v is rank %s\n", hand, hand.Eval().Rank())
+
+}
+
+func TestShuffle(t *testing.T) {
+	d := NewDeck()
+	d.Shuffle()
+	fmt.Println(d)
+	d.Shuffle()
+	fmt.Println(d)
 }

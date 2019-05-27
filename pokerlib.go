@@ -7,7 +7,11 @@
  */
 package poker
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
 
 //
 //   This routine initializes the deck.  A deck of cards is
@@ -70,6 +74,16 @@ func (d Deck) find(c CardRank, s Suit) (pos int, found bool) {
 		}
 	}
 	return -1, false
+}
+
+// Shuffle uses the Go rand.Shuffle function which is an implementation
+// of the Fisher-Yates shuffle
+func (d *Deck) Shuffle() {
+	rand.Seed(time.Now().UnixNano())
+	rand.Shuffle(len(d), func(i, j int) {
+		d[i], d[j] = d[j], d[i]
+	})
+
 }
 
 // return the corresponding HandRank for a given value
